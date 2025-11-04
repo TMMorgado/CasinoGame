@@ -63,9 +63,9 @@ betBtn.addEventListener('click', (e) => {
   e.preventDefault();
   const raw = betInput.value.trim();
   const amount = Number(raw || 0);
-  if (!amount || amount <= 0) return showToast('Introduz um valor de aposta válido.','danger');
-  if (amount > balance && amount <= 100) return  showToast('Saldo insuficiente.', 'danger');   
-  if (amount> 100) return showToast("Valor de aposta superior ao permitido", 'danger');  
+  if (!amount || amount <= 0) return showToast('Please enter a valid bet amount.','danger');
+  if (amount > balance && amount <= 100) return  showToast('You dont have stones enough', 'danger');   
+  if (amount> 100) return showToast("Bet amount exceeds the allowed limit", 'danger');  
 
   balance -= amount ; 
   currentBet = amount;
@@ -92,7 +92,7 @@ addBalance.addEventListener('click',(e) =>{
 menu.addEventListener('click', (e) => {
   const btn = e.target.closest('.dropdown-item');
   if (!btn) return;
-  if (!currentBet) return showToast('Faz a aposta primeiro.','danger'); 
+  if (!currentBet) return showToast('Place your bet first','danger'); 
   guess = Number(btn.textContent.trim());
   numberShow.textContent = guess;
   rollBtn.disabled = false;
@@ -103,7 +103,7 @@ function rollDie() {
 
  
 
-  if (!currentBet) return  showToast('you have to bet first', 'danger');
+  if (!currentBet) return  showToast('Place your bet first', 'danger');
   if (guess == null) return showToast('Place a number first.', 'danger'); 
 
   const n = 1 + Math.floor(Math.random() * 6);
