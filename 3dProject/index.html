@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameMax</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+ <script src="script.js" defer></script>
+</head>
+
+<body>
+
+ <!--NAVBAR-->
+<nav class="navbar navbar-expand-lg bg-body-tertiary rounded-5 shadow-sm my-3 py-3">
+  <div class="container nav">
+    <a class="navbar-brand" href="#">Roll game</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse gap-3" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Games
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Poker</a></li>
+            <li><a class="dropdown-item" href="#">Black Jack</a></li>
+            <li><a class="dropdown-item" href="#">Rollete</a></li>
+            <li><a class="dropdown-item" href="#">RPS</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <span class="currentBalance me-2"></span>
+
+      
+      <div class="input-group input-group-sm" >
+        <a href="" class="me-3" id="profileImage"></a>
+        <button  class="btn btn-success" data-bs-toggle="modal" data-bs-target="#depositModal">Deposit</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+<!--TITLE-->
+<div class="introduction mt-5 mb-5">
+  <h1 id="titlePage" class="mt-5 mb-5">Roll the dice </h1>
+</div>
+<!--tost alert -->
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1100">
+  <div id="liveToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div id="toast-body" class="toast-body">
+        Operação concluída com sucesso!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+    <div class="scene">
+      <div id="spinWrap" class="spinWrap">
+        <div class="box"> 
+            <div class="side front">1</div>
+            <div class="side back">2</div>
+            <div class="side right">3</div>
+            <div class="side left">4</div>
+            <div class="side top">5</div>
+            <div class="side bottom">6</div>
+        </div>  
+        </div>
+    </div>
+
+    <div class="gameplay">   
+  <div class="row "><input id="inputValue" class=" text-center" type="number" min="0" placeholder="max bet 100"></div>
+  <div class="row mt-2"><button class="btn btn-success" id="betting">Bet!</button></div>
+   <div class="row mt-2">  <span class="odds"> place a bet and try win x5 more </span></div> 
+       
+        <div class="dropdown mt-5">
+  <button class="btn btn-primary dropdown-toggle mt-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    pick a number
+  </button>
+  <ul id="numberPicked" aria-disabled="true" style="pointer-events:none; opacity:.6;" class="dropdown-menu">
+    <li value="1"><a class="dropdown-item" >1</a></li>
+    <li value="2"><a class="dropdown-item" >2</a></li>
+    <li value="3"><a class="dropdown-item" >3</a></li>
+    <li value="4"><a class="dropdown-item" >4</a></li>
+    <li value="5"><a class="dropdown-item" >5</a></li>
+    <li value="6"><a class="dropdown-item" >6</a></li>
+  </ul>
+  
+</div>
+<label for="" class="showNumber"></label>
+<div class="row moneyRow">
+  <div class="col moneyrow">
+    <div class="row"><label class="showMoney"></label> </div>
+     <button id="rollBtn" disabled class="btn btn-success">Roll</button>
+  </div>
+</div>
+</div>
+
+
+<div class="row mt-5"><h2>Other</h2></div>
+
+<div class="container othergames">
+  <div class="row g-2 mt-5 mb-5">
+    <div class="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
+      <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Poker</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+    <a href="#" class="btn btn-primary">Go play</a>
+  </div>
+    </div>
+    </div>
+      <div class="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Black Jack</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+    <button onclick="changegame(this)" href="#" class="btn btn-primary" id="bjBtn">Go play</button>
+  </div>
+  </div>
+  </div>
+   <div class="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
+      <div class="card " style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Rollete</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+    <a href="#" class="btn btn-primary">Go play</a>
+  </div>
+  </div>
+  </div>
+
+        <div class="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
+          <div class="card lastcard" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">RPS</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+    <a href="#" class="btn btn-primary">Go play</a>
+  </div>
+  </div>
+  </div>
+  </div>
+</div>
+</div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Roll Game - Criado por Tiago</p>
+  </footer>
+     
+  <!-- Modal deposito -->
+  <div class="modal fade" id="depositModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Depósito</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>O valor minimo para depositar são 5stones</p>
+        <p>atualmente tens: <span class="currentBalance2"></span> </p>
+        <input id="inputDeposit" class="form-control text-center" type="number" min="0" placeholder="Deposit">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" id="depositBtn" data-bs-dismiss="modal" class="btn btn-success">Depositar!</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <!-- Modal perfil -->
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
