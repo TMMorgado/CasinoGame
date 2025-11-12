@@ -13,6 +13,7 @@
   --success-2: #22c55e;
   --primary-1: #4f46e5;
   --primary-2: #7c3aed;
+
 }
 
 body {
@@ -97,7 +98,7 @@ body {
 .showMoney { font-weight: 600; color: #e9ecef; }
 
 /* Primary bet input */
-#inputValue {
+.inputValue {
   max-width: 100%;
   font-size: 1.25rem;
   font-weight: 700;
@@ -111,7 +112,7 @@ body {
   text-align: center;
   transition: box-shadow .2s ease, transform .1s ease;
 }
-#inputValue:focus {
+.inputValue:focus {
   outline: none;
   box-shadow: 0 0 0 4px rgba(124,138,255,.25);
   transform: translateY(-1px);
@@ -235,6 +236,8 @@ body {
   height: 50px;
 }
 
+
+
 /* =========================================
    3D CUBE (SCENE)
 ========================================= */
@@ -302,3 +305,45 @@ footer {
   color: #ccc;
   padding: 15px 0;
 }
+
+
+
+/* =========================================
+   RPS
+========================================= */
+#rpsViews{
+  display: flex;
+  flex-direction: row;
+  border: solid 2px red;
+  height: fit-content;
+  width: 100%;
+}
+
+.computerFigures{
+border: solid 2px green;
+width: fit-content;
+}
+
+.userFigures{
+border: solid 2px blue;
+width: fit-content;
+
+}
+
+/* =========================================
+   rollete
+========================================= */
+
+
+#colorBlack{
+  color: black;
+}
+#colorRed{
+  color: red;
+}
+
+#colorGreen{
+  color: green;
+}
+
+

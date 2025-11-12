@@ -1,243 +1,383 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameMax</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
- <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GameMax</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <!--script bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="script.js" defer></script>
 </head>
 
 <body>
+  <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
- <!--NAVBAR-->
-<nav class="navbar navbar-expand-lg bg-body-tertiary rounded-5 shadow-sm my-3 py-3">
-  <div class="container nav">
-    <a class="navbar-brand" href="#">GameMax</a>
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCeSQwnnVdJbwZ_SM-Q7GFQA2qEZA3nEEE",
+    authDomain: "gameproject-d1169.firebaseapp.com",
+    projectId: "gameproject-d1169",
+    storageBucket: "gameproject-d1169.firebasestorage.app",
+    messagingSenderId: "27982628821",
+    appId: "1:27982628821:web:61ecc2d6b2690d27f31f5c"
+  };
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+</script>
 
-    <div class="collapse navbar-collapse gap-3" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Games
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Poker</a></li>
-            <li><a class="dropdown-item" href="#">Black Jack</a></li>
-            <li><a class="dropdown-item" href="#">Rollete</a></li>
-            <li><a class="dropdown-item" href="#">RPS</a></li>
-            <li><a class="dropdown-item" href="#">Roll dice</a></li>
-          </ul>
-        </li>
-      </ul>
+  <!--NAVBAR-->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary rounded-5 shadow-sm my-3 py-3">
+    <div class="container nav">
+      <a class="navbar-brand" href="#">GameMax</a>
 
-      <span class="currentBalance me-2"></span>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-      
-      <div class="input-group input-group-sm" >
-        <button data-bs-toggle="modal" data-bs-target="#profileModal" class="me-3" id="profileImage"></a>
-        <button  class="btn btn-success" data-bs-toggle="modal" data-bs-target="#depositModal">Deposit</button>
-      </div>
-    </div>
-  </div>
-</nav>
+      <div class="collapse navbar-collapse gap-3" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Games
+            </a>
+            <ul class="dropdown-menu">
+              <li><a onclick="changeGameplayDiv('rolleteGameplay');changeGameImage('rolleteView')" class="dropdown-item" >Rollete</a></li>
+              <li><a onclick="changeGameplayDiv('rpsGameplay'); changeGameImage('rpsView')" class="dropdown-item" >RPS</a></li>
+              <li><a onclick="changeGameplayDiv('diceGameplay'); changeGameImage('diceView')" onclick="" class="dropdown-item" >Roll dice</a></li>
+            </ul>
+          </li>
+        </ul>
 
-<div class="container">
-<!--TITLE-->
-<div class="introduction mt-5 mb-5">
-  <h1 id="titlePage" class="mt-5 mb-5">Roll the dice 🎲 </h1>
-</div>
-<!--tost alert -->
-<div class="position-fixed top-0 end-0 p-3" style="z-index: 1100">
-  <div id="liveToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-      <div id="toast-body" class="toast-body">
-        Operação concluída com sucesso!
-      </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-  </div>
-</div>
-    <div class="scene">
-      <div id="spinWrap" class="spinWrap">
-        <div class="box"> 
-            <div class="side front">1</div>
-            <div class="side back">2</div>
-            <div class="side right">3</div>
-            <div class="side left">4</div>
-            <div class="side top">5</div>
-            <div class="side bottom">6</div>
-        </div>  
+        <span class="currentBalance me-2"></span>
+
+
+        <div class="input-group input-group-sm">
+          <button data-bs-toggle="modal" data-bs-target="#profileModal" class="me-3" id="profileImage"></a>
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#depositModal">Deposit</button>
         </div>
+      </div>
+    </div>
+  </nav>
+
+  <!--page container -->
+  <div class="container">
+    <!--TITLE-->
+    <div class="introduction mt-5 mb-5">
+      <h1 id="titlePage" class="mt-5 mb-5">Roll the dice 🎲 </h1>
+    </div>
+    <!--tost alert -->
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 1100">
+      <div id="liveToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
+        aria-atomic="true">
+        <div class="d-flex">
+          <div id="toast-body" class="toast-body">
+            Operação concluída com sucesso!
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+            aria-label="Close"></button>
+        </div>
+      </div>
     </div>
 
-    <div class="gameplay">   
-  <div class="row "><input id="inputValue" class=" text-center" type="number" min="0" placeholder="max bet 100"></div>
-  <div class="row mt-2"><button class="btn btn-success" id="betting">Bet!</button></div>
-   <div class="row mt-2">  <span class="odds"> place a bet and try win x5 more </span></div> 
-       
-        <div class="dropdown mt-5">
-  <button class="btn btn-primary dropdown-toggle mt-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    pick a number
-  </button>
-  <ul id="numberPicked" aria-disabled="true" style="pointer-events:none; opacity:.6;" class="dropdown-menu">
-    <li value="1"><a class="dropdown-item" >1</a></li>
-    <li value="2"><a class="dropdown-item" >2</a></li>
-    <li value="3"><a class="dropdown-item" >3</a></li>
-    <li value="4"><a class="dropdown-item" >4</a></li>
-    <li value="5"><a class="dropdown-item" >5</a></li>
-    <li value="6"><a class="dropdown-item" >6</a></li>
-  </ul>
-  
-</div>
-<label for="" class="showNumber"></label>
-<div class="row moneyRow">
-  <div class="col moneyrow">
-    <div class="row"><label class="showMoney"></label> </div>
-     <button id="rollBtn" disabled class="btn btn-success">Roll</button>
-  </div>
-</div>
-</div>
-
-
-<div class="row mt-5"><h2>Other</h2></div>
-
-<div class="container othergames">
-  <div class="row g-2 mt-5 mb-5">
-    <div class="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
-      <div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Poker</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-    <a href="#" class="btn btn-primary">Go play</a>
-  </div>
+    <!--tost scene where the game take place Roll game-->
+    <div id="diceView" class="scene" >
+      <div id="spinWrap" class="spinWrap">
+        <div class="box">
+          <div class="side front">1</div>
+          <div class="side back">2</div>
+          <div class="side right">3</div>
+          <div class="side left">4</div>
+          <div class="side top">5</div>
+          <div class="side bottom">6</div>
+        </div>
+      </div>
     </div>
-    </div>
-      <div class="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
-        <div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Black Jack</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-    <button onclick="changegame(this)" href="#" class="btn btn-primary" id="bjBtn">Go play</button>
-  </div>
-  </div>
-  </div>
-   <div class="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
-      <div class="card " style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Rollete</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-    <a href="#" class="btn btn-primary">Go play</a>
-  </div>
-  </div>
-  </div>
 
-        <div class="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
+
+
+<!-- Scene for RPS -->
+<div id="rpsView" class="scene" style="display: none;">
+  <div id="rpsViews" >
+    <div class="computerFigures">teste</div>
+    <div class="userFigures">teste</div>
+  </div>
+</div>
+
+
+<!-- Scene for rollete -->
+<div id="rolleteView" class="scene" style="display: none;">
+  <div id="rolleteViews" >
+    <div id="wheel" class="wheel"></div>
+    
+  </div>
+</div>
+
+
+
+
+
+    <!-- box where the player bet -->
+
+    <!--inicial box-->
+
+    <!--roll dice gameplay-->
+    <div id="diceGameplay" class="gameplay">
+      <div class="row ">
+        <input class="inputValue text-center" type="number" min="0" placeholder="max bet 100">
+      </div>
+      <div class="row mt-2">
+        <button class="betting btn btn-success">Bet!</button>
+      </div>
+      <div class="row mt-2">
+        <span class="odds"> place a bet and try win x5 more </span>
+      </div>
+
+      <div class="dropdown mt-5">
+        <button class="btn btn-primary dropdown-toggle mt-2" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          pick a number
+        </button>
+        <ul id="numberPicked" aria-disabled="true" style="pointer-events:none; opacity:.6;" class="dropdown-menu">
+          <li value="1"><a class="dropdown-item">1</a></li>
+          <li value="2"><a class="dropdown-item">2</a></li>
+          <li value="3"><a class="dropdown-item">3</a></li>
+          <li value="4"><a class="dropdown-item">4</a></li>
+          <li value="5"><a class="dropdown-item">5</a></li>
+          <li value="6"><a class="dropdown-item">6</a></li>
+        </ul>
+      </div>
+      <label for="" class="showNumber"></label>
+      <div class="row moneyRow">
+        <div class="col moneyrow">
+          <div class="row"><label class="showMoney"></label> </div>
+          <button id="rollBtn" disabled class="btn btn-success">Roll</button>
+        </div>
+      </div>
+        <div class="infogame mt-2">
+        <p>This game was inspired by the traditional dice mafia game.
+The goal is to place a bet and try to guess the correct number.
+Here you can only choose one number per round.</p>
+      </div>
+    </div>
+
+    <!--RPS gameplay-->
+    <div id="rpsGameplay" class="gameplay" style="display: none;">
+      <div class="row ">
+        <input id="inputRps" class="inputValue text-center" type="number" min="0" placeholder="max bet 100">
+      </div>
+      <div class="row mt-2">
+        <button id="betrps" class="btn btn-success">Bet!</button>
+      </div>
+      <div class="row mt-2">
+        <span class="odds"> place a bet and try win x3 more </span>
+      </div>
+
+      <div class="dropdown mt-5">
+        <button class="btn btn-primary dropdown-toggle mt-2" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          Pick a move
+        </button>
+        <ul id="movePicked"  class="dropdown-menu text-center">
+          <li value="Rock"><a class="dropdown-item">Rock</a></li>
+          <li value="Paper"><a class="dropdown-item">Scissors</a></li>
+          <li value="Scissors"><a class="dropdown-item">Paper</a></li>
+        </ul>
+
+      </div>
+      <label for="" class="showMove"></label>
+      <div class="row moneyRow">
+        <div class="col moneyrow">
+          <div class="row"><label class="showMoney"></label> </div>
+          <button id="fightBtn" disabled class="btn btn-success">Fight!</button>
+        </div>
+      </div>
+        <div class="infogame mt-2">
+        <p>This game represent the tradicional Rock paper scissor.
+The goal is to place a bet and try to win vs the computer.
+you have a fair 1/3 odds</p>
+      </div>
+    </div>
+   
+    <!--rollete gameplay-->
+    <div id="rolleteGameplay" class="gameplay" style="display: none;">
+      <div class="row ">
+        <input id="inputrollete" class="inputValue text-center" type="number" min="0" placeholder="max bet 100">
+      </div>
+      <div class="row mt-2">
+        <button id="betrollete" class="btn btn-success">Bet!</button>
+      </div>
+      <div class="row mt-2">
+        <span class="odds"> Place a bet and try win x30 more </span>
+      </div>
+
+      <form action="" >
+        <input id="numberUserRollete" class="inputValue mt-1 mb-2" type="number" value="" placeholder="0-36" min="0" max="36" step="1" >
+        <hr>
+        <div class="form-check">
+          <input name="rouletteColor" class="form-check-input" type="radio" id="inlineCheckbox2" value="2">
+          <label id="colorBlack" class="form-check-label" for="inlineCheckbox2">Black</label>
+        </div>
+        <div class="form-check">
+          <input name="rouletteColor" class="form-check-input" type="radio" id="inlineCheckbox3" value="1">
+          <label id="colorRed" class="form-check-label" for="inlineCheckbox3">Red</label>
+      </div>
+        <div class="form-check">
+        <input name="rouletteColor" class="form-check-input" type="radio" id="inlineCheckbox4" value="0">
+        <label id="colorGreen" class="form-check-label" for="inlineCheckbox4">Green(0)</label>
+      </div>
+     <span class="odds"> Place a bet and try win x2 more </span>
+      <hr>
+        <button id="confirmNumberRollete" class="btn btn-primary">GO!</button>
+      </form>
+      <label for="" class="showNumberRollete"></label>
+      <div class="row moneyRow">
+        <div class="col moneyrow">
+          <div class="row"><label class="showMoney"></label> </div>
+        </div>
+      </div>
+      <div class="infogame mt-2">
+        <p>This game was inspired by the traditional roulette.
+The goal is to place a bet and try to guess the correct number or color.
+Unlike the classic roulette, here you can only choose one number and one color per round.</p>
+      </div>
+    </div>
+
+    <!--tost other games start -->
+    <div class="row mt-5">
+      <h2>Other</h2>
+    </div>
+    <div class="container othergames">
+      <div class="row g-2 mt-5 mb-5">
+        <div class="col-12 col-sm-4 col-lg-4 d-flex justify-content-center">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Rollete</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s
+                content.</p>
+              <button onclick="changeGameplayDiv('rolleteGameplay');changeGameImage('rolleteView')" class="btn btn-primary">Go play</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-4 col-lg-4 d-flex justify-content-center">
+          <div class="card " style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Dice</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s
+                content.</p>
+              <button  onclick="changeGameplayDiv('diceGameplay'); changeGameImage('diceView')"  class="btn btn-primary">Go play</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="rpsCard" class="col-12 col-sm-4 col-lg-4 d-flex justify-content-center">
           <div class="card lastcard" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">RPS</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-    <a href="#" class="btn btn-primary">Go play</a>
+            <div class="card-body">
+              <h5 class="card-title">RPS</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s
+                content.</p>
+              <button onclick="changeGameplayDiv('rpsGameplay'); changeGameImage('rpsView')" class="btn btn-primary">Go play</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  </div>
-  </div>
-  </div>
-</div>
-</div>
 
   <!-- Footer -->
   <footer>
     <p>© 2025 Roll Game - Criado por Tiago Morgado</p>
   </footer>
-     
+
   <!-- Modal deposito -->
   <div class="modal fade" id="depositModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Depósito</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>The minimum deposit amount is 5 stones.</p>
-        <p>You currently have: <span class="currentBalance2"></span> </p>
-        <input id="inputDeposit" class="form-control text-center" type="number" min="0" placeholder="Deposit">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" id="depositBtn" data-bs-dismiss="modal" class="btn btn-success">Deposit!</button>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Depósito</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>The minimum deposit amount is 5 stones.</p>
+          <p>You currently have: <span class="currentBalance2"></span> </p>
+          <input id="inputDeposit" class="form-control text-center" type="number" min="0" placeholder="Deposit">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" id="depositBtn" data-bs-dismiss="modal" class="btn btn-success">Deposit!</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
- <!-- Modal perfil -->
-  <!-- MODAL PERFIL -->
-<div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content profile-modal">
-      <div class="modal-header">
-        <h5 class="modal-title">Perfil do utilizador</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+  <!-- Modal perfil -->
+  <div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content profile-modal">
+        <div class="modal-header">
+          <h5 class="modal-title">My profile</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+
+        <form id="profileForm" class="modal-body">
+          <div class="row g-3">
+            <div class="col-12">
+              <label for="pf_nome" class="form-label">Name</label>
+              <input type="text" class="form-control" id="pf_nome" placeholder="Your name" required>
+            </div>
+
+            <div class="col-md-6">
+              <label for="pf_email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="pf_email" placeholder="ex: nome@dominio.com">
+            </div>
+
+            <div class="col-md-6">
+              <label for="pf_tel" class="form-label">Phone</label>
+              <input type="tel" class="form-control" id="pf_tel" inputmode="tel" placeholder="ex: 9XXXXXXXX">
+            </div>
+
+            <div class="col-12">
+              <label for="pf_morada" class="form-label">Adress</label>
+              <input type="text" class="form-control" id="pf_morada" placeholder="Street, number">
+            </div>
+
+            <div class="col-md-6">
+              <label for="pf_cidade" class="form-label">City</label>
+              <input type="text" class="form-control" id="pf_cidade" placeholder="Porto">
+            </div>
+
+            <div class="col-md-3">
+              <label for="pf_cp" class="form-label">Post Code</label>
+              <input type="text" class="form-control" id="pf_cp" placeholder="1000-000">
+            </div>
+
+            <div class="col-md-3">
+              <label for="pf_pais" class="form-label">Country</label>
+              <input type="text" class="form-control" id="pf_pais" placeholder="Portugal">
+            </div>
+          </div>
+
+          <div class="d-flex gap-2 justify-content-end mt-4">
+            <button type="button" class="btn btn-outline-light" id="clearProfileBtn">Reset</button>
+            <button type="submit" class="btn btn-success">Save</button>
+          </div>
+        </form>
       </div>
-
-      <form id="profileForm" class="modal-body">
-        <div class="row g-3">
-          <div class="col-12">
-            <label for="pf_nome" class="form-label">Name</label>
-            <input type="text" class="form-control" id="pf_nome" placeholder="O teu nome" required>
-          </div>
-
-          <div class="col-md-6">
-            <label for="pf_email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="pf_email" placeholder="ex: nome@dominio.com">
-          </div>
-
-          <div class="col-md-6">
-            <label for="pf_tel" class="form-label">Phone</label>
-            <input type="tel" class="form-control" id="pf_tel" inputmode="tel" placeholder="ex: 9XXXXXXXX">
-          </div>
-
-          <div class="col-12">
-            <label for="pf_morada" class="form-label">Adress</label>
-            <input type="text" class="form-control" id="pf_morada" placeholder="Rua, nº, andar">
-          </div>
-
-          <div class="col-md-6">
-            <label for="pf_cidade" class="form-label">City</label>
-            <input type="text" class="form-control" id="pf_cidade" placeholder="Lisboa">
-          </div>
-
-          <div class="col-md-3">
-            <label for="pf_cp" class="form-label">Post Code</label>
-            <input type="text" class="form-control" id="pf_cp" placeholder="1000-000">
-          </div>
-
-          <div class="col-md-3">
-            <label for="pf_pais" class="form-label">Country</label>
-            <input type="text" class="form-control" id="pf_pais" placeholder="Portugal">
-          </div>
-        </div>
-
-        <div class="d-flex gap-2 justify-content-end mt-4">
-          <button type="button" class="btn btn-outline-light" id="clearProfileBtn">Reset</button>
-          <button type="submit" class="btn btn-success">Save</button>
-        </div>
-      </form>
     </div>
   </div>
-</div>
 
 
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
 
 </body>
+
 </html>
