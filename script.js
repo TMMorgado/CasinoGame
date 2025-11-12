@@ -41,6 +41,9 @@ const valueDeposit = document.querySelector('#inputDeposit')
 alertSucess= document.querySelector('#alertSucess')
 alertError= document.querySelector('#alertError')
 
+//image user rps
+  const userDiv= document.querySelector('.userFigures')
+
 
 
 
@@ -247,7 +250,6 @@ const raw = betInputRPS.value.trim();
 menuRPS.addEventListener('click', (e) => {
 
   
-  const userDiv= document.querySelector('.userFigures')
 
   const btn = e.target.closest('.dropdown-item');
   if (!btn) return;
@@ -258,16 +260,16 @@ menuRPS.addEventListener('click', (e) => {
   let guessvalue=0
   if(guess=="Rock"){
     guessvalue=1
-    userDiv.textContent="Rock"
+    userDiv.textContent="✊"
     userDiv.style
   }
   if(guess=="Paper"){
     guessvalue=2
-    userDiv.textContent="Paper"
+    userDiv.textContent="✋"
   }
   if(guess=="Scissors"){
     guessvalue=3
-    userDiv.textContent="Scissors"
+    userDiv.textContent="✌️"
   }
   moveShow.textContent = guess;
   fightBtn.disabled = false;
@@ -285,18 +287,30 @@ const pcDiv = document.querySelector('.computerFigures')
   let pcMove = null
   let payout = currentBet* 3 
 
+   if(guess=="Rock"){
+    
+    userDiv.textContent="✊"
+  }
+  if(guess=="Paper"){
+    userDiv.textContent="✋"
+  }
+  if(guess=="Scissors"){
+    userDiv.textContent="✌️"
+  }
+
 
  if(pcMovevalue===1){
     pcMove="Rock"
-    pcDiv.textContent="Rock"
+    pcDiv.textContent="✊"
+
   }
   if(pcMovevalue===2){
     pcMove="Paper"
-    pcDiv.textContent="Paper"
+    pcDiv.textContent="✋"
   }
   if(pcMovevalue===3){
     pcMove="Scissors"
-    pcDiv.textContent="Scissors"
+    pcDiv.textContent="✌️"
   }
 
 

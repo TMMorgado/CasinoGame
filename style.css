@@ -153,7 +153,7 @@ body {
   border: 1px solid var(--border);
   border-radius: 16px;
 }
-.dropdown-item { color: #fff; }
+.dropdown-item { color: #fff; font-size: 20px; }
 .dropdown-item:hover { background: rgba(255,255,255,.08); }
 
 /* Buttons – base and container-specific width */
@@ -314,18 +314,18 @@ footer {
 #rpsViews{
   display: flex;
   flex-direction: row;
-  border: solid 2px red;
   height: fit-content;
+  justify-content: center;
   width: 100%;
 }
 
 .computerFigures{
-border: solid 2px green;
 width: fit-content;
+font-size: 200px;
 }
 
 .userFigures{
-border: solid 2px blue;
+font-size: 200px;
 width: fit-content;
 
 }
