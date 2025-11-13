@@ -319,15 +319,39 @@ footer {
   width: 100%;
 }
 
+
+
 .computerFigures{
 width: fit-content;
 font-size: 200px;
+perspective: 900px;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+  animation: flip180 5s  infinite alternate;
 }
+@keyframes flip180 {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(30deg); }
+}
+
+
 
 .userFigures{
 font-size: 200px;
 width: fit-content;
 
+}
+
+.computerlabel{
+  display: flex;
+  flex-direction: column;
+ margin-top: 10px;
+}
+
+.labelComputer{
+  font-size: 40;
+  color: white;
 }
 
 /* =========================================

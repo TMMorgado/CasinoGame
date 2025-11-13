@@ -13,25 +13,7 @@
 </head>
 
 <body>
-  <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyCeSQwnnVdJbwZ_SM-Q7GFQA2qEZA3nEEE",
-    authDomain: "gameproject-d1169.firebaseapp.com",
-    projectId: "gameproject-d1169",
-    storageBucket: "gameproject-d1169.firebasestorage.app",
-    messagingSenderId: "27982628821",
-    appId: "1:27982628821:web:61ecc2d6b2690d27f31f5c"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-</script>
+  
 
   <!--NAVBAR-->
   <nav class="navbar navbar-expand-lg bg-body-tertiary rounded-5 shadow-sm my-3 py-3">
@@ -108,8 +90,15 @@
 <!-- Scene for RPS -->
 <div id="rpsView" class="scene" style="display: none;">
   <div id="rpsViews" >
-    <div class="computerFigures"></div>
-    <div class="userFigures"></div>
+    <div class="computerlabel">
+      <div class="computerFigures"></div>
+      <h2 id="labelPc" class="labelComputer"></h2>
+    </div>
+    <div class="computerlabel">
+      <div class="userFigures"></div>
+      <h2 id="labelUser" class="labelComputer"></h2>
+    </div>
+    
   </div>
 </div>
 

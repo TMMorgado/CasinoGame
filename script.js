@@ -41,14 +41,17 @@ const valueDeposit = document.querySelector('#inputDeposit')
 alertSucess= document.querySelector('#alertSucess')
 alertError= document.querySelector('#alertError')
 
-//image user rps
+//image user e pc rps
   const userDiv= document.querySelector('.userFigures')
+  const pcDiv = document.querySelector('.computerFigures')
 
-
+const labelpc= document.querySelector('#labelPc')
+const labeluser= document.querySelector('#labelUser')
 
 
 let balance = 100;
 let currentBet = 0;
+finalamount=0;
 let guess = null;
 let lastN = null;
 
@@ -123,14 +126,11 @@ btnInputRollete.addEventListener('click',(e)=>{
         console.log("you win")
         let finalamount= currentBet*30
         balance+=finalamount
-        
-        
+         showToast(`you win`,'success')
       }
       else{console.log("you lose")
-        
-        
-        
-        
+        showToast(`you lose ${currentBet}`,'danger') 
+       
       }
     
   }
@@ -142,21 +142,24 @@ btnInputRollete.addEventListener('click',(e)=>{
       console.log("escolheste preto e saiu preto, ganhaste")
       let finalamount= currentBet*2
         balance+=finalamount
+          showToast(`you win:${finalamount}`,'success')
     }
 
     else if(redNumbers.includes(computerMove) && selected.value==="1" ){
       console.log("escolheste vermelho e saiu vermelho, ganhaste")
       let finalamount= currentBet*2
         balance+=finalamount
+        showToast(`you win:${finalamount}`,'success')
     }
 
     else if(green === computerMove && selected.value==="0" ){
-      console.log("escolheste green e saiu green, ganhaste")
       let finalamount= currentBet*2
         balance+=finalamount
+        showToast(`you win:${finalamount}`,'success')
     }
      else{
       console.log("escolheste: " ,selected.value, "saiu :", computerMove)
+      showToast(`you lose:${currentBet}` ,'danger' )
       
       
     }
@@ -164,35 +167,14 @@ btnInputRollete.addEventListener('click',(e)=>{
 
     else if(value && selected){
 
-      if (userNumber===computerMove){
-        console.log("you win the number")
-        let finalamount= currentBet*30
+      if (userNumber===computerMove && blackNumbers.includes(computerMove) && selected.value==="2" ){
+        console.log("you win the number and color")
+        let finalamount= currentBet*30*2
         balance+=finalamount
+        showToast(`you win:${finalamount}`,'success')
       }
-      else{console.log("you lose the number")}
-
-       if(blackNumbers.includes(computerMove) && selected.value==="2" ){
-      console.log("escolheste preto e saiu preto, ganhaste")
-      let finalamount= currentBet*2
-        balance+=finalamount
-    }
-
-    else if(redNumbers.includes(computerMove) && selected.value==="1" ){
-      console.log("escolheste vermelho e saiu vermelho, ganhaste")
-      let finalamount= currentBet*2
-        balance+=finalamount
-    }
-
-    else if(green === computerMove && selected.value==="0" ){
-      console.log("escolheste green e saiu green, ganhaste")
-      let finalamount= currentBet*2
-        balance+=finalamount
-    }
-     else{
-      console.log("perdeste a cor: escolheste: " ,selected.value, "saiu :", computerMove)
-      
-      
-    }
+      else{console.log("you lose the number and color")}
+      showToast(`you lose:${currentBet}` ,'danger' )
     }
 
     
@@ -261,23 +243,26 @@ menuRPS.addEventListener('click', (e) => {
   if(guess=="Rock"){
     guessvalue=1
     userDiv.textContent="✊"
-    userDiv.style
+    labeluser.textContent="User"
   }
   if(guess=="Paper"){
     guessvalue=2
     userDiv.textContent="✋"
+    labeluser.textContent="User"
   }
   if(guess=="Scissors"){
     guessvalue=3
-    userDiv.textContent="✌️"
+    userDiv.textContent="✌️";
+    labeluser.textContent="User"
   }
+  pcDiv.textContent="";
   moveShow.textContent = guess;
   fightBtn.disabled = false;
 });
 // 3 funcao fight rps
 function fight() {
 
-const pcDiv = document.querySelector('.computerFigures')
+
 
 
   if (!currentBet) return  showToast('Place your bet first', 'danger');
@@ -287,38 +272,50 @@ const pcDiv = document.querySelector('.computerFigures')
   let pcMove = null
   let payout = currentBet* 3 
 
+
+
+
    if(guess=="Rock"){
     
     userDiv.textContent="✊"
+    
   }
   if(guess=="Paper"){
     userDiv.textContent="✋"
+     
   }
   if(guess=="Scissors"){
     userDiv.textContent="✌️"
+     
   }
 
+    setTimeout(() => {
 
  if(pcMovevalue===1){
     pcMove="Rock"
     pcDiv.textContent="✊"
+    pcDiv.style.animation="none"
+     labelpc.textContent="Computer"
 
   }
   if(pcMovevalue===2){
     pcMove="Paper"
     pcDiv.textContent="✋"
+    pcDiv.style.animation="none"
+      labelpc.textContent="Computer"
   }
   if(pcMovevalue===3){
     pcMove="Scissors"
     pcDiv.textContent="✌️"
+    pcDiv.style.animation="none"
+      labelpc.textContent="Computer"
   }
 
 
 
-  setTimeout(() => {
   
 if (guess=="Rock" && pcMove=="Rock"){
-    showToast(`its a tie,'success'`)
+    showToast(`its a tie,'warning'`)
 }
 if (guess=="Rock" && pcMove=="Paper"){
     showToast(`You lose.. ${currentBet} stones`, 'danger')
@@ -344,11 +341,19 @@ if (guess=="Scissors" && pcMove=="Paper"){
 if (guess=="Scissors" && pcMove=="Scissors"){
      showToast(`its a tie,'success'`)
 }
-    renderBalance();
-    resetRound();
-  }, 3000);
+renderBalance();
+ }, 2000);
+    
+  
+     betBtnRps.disabled = false;
+  betInputRPS.disabled = false;
+  betInputRPS.textContent="";
+  betInputRPS.style.color= "white";
+ 
 
- console.log(`O computador escolheu ${pcMove}`)
+ 
+
+
   
 }
 
@@ -527,6 +532,8 @@ function enableDropdown(enable) {
 }
 //after the pay we reset the round
 function resetRound() {
+
+  
   currentBet = 0;
   guess = null;
   lastN = null;
@@ -537,6 +544,10 @@ function resetRound() {
   enableDropdown(false);
   numberShow.textContent = '';
   rollBtn.disabled = true;
+  pcMove=0;
+  pcDiv.textContent="✋✌️✊";
+  userDiv.textContent="";
+
 }
 //********************* End Geral**********************
 
