@@ -49,6 +49,12 @@ const labelpc= document.querySelector('#labelPc')
 const labeluser= document.querySelector('#labelUser')
 
 
+
+
+
+
+
+
 let balance = 100;
 let currentBet = 0;
 finalamount=0;
@@ -341,7 +347,9 @@ if (guess=="Scissors" && pcMove=="Paper"){
 if (guess=="Scissors" && pcMove=="Scissors"){
      showToast(`its a tie,'success'`)
 }
+console.log("primeira funcoa")
 renderBalance();
+
  }, 2000);
     
   
@@ -349,13 +357,25 @@ renderBalance();
   betInputRPS.disabled = false;
   betInputRPS.textContent="";
   betInputRPS.style.color= "white";
- 
+  resetRoundRSP();
 
- 
-
-
-  
 }
+
+
+function resetRoundRSP(){
+  setTimeout(()=>{
+  pcDiv.textContent="✊"
+  userDiv.textContent="✋"
+  pcDiv.style.animation="flip180 1s infinite alternate"
+  userDiv.style.animation="flip180 1s infinite alternate"
+  labeluser.textContent="";
+  labelpc.textContent=""
+  pcMove=0;
+  console.log("entrei na funcao")},5000)
+ 
+
+}
+
 
 //********************* end funcoes rps**********************
 
@@ -544,10 +564,8 @@ function resetRound() {
   enableDropdown(false);
   numberShow.textContent = '';
   rollBtn.disabled = true;
-  pcMove=0;
-  pcDiv.textContent="✋✌️✊";
-  userDiv.textContent="";
-
+ 
+ 
 }
 //********************* End Geral**********************
 

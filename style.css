@@ -323,7 +323,7 @@ footer {
 
 .computerFigures{
 width: fit-content;
-font-size: 200px;
+font-size: 100px;
 perspective: 900px;
   transform-style: preserve-3d;
   backface-visibility: hidden;
@@ -338,7 +338,7 @@ perspective: 900px;
 
 
 .userFigures{
-font-size: 200px;
+font-size: 100px;
 width: fit-content;
 
 }
@@ -369,5 +369,9 @@ width: fit-content;
 #colorGreen{
   color: green;
 }
+
+
+
+
 
 
